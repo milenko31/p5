@@ -40,6 +40,10 @@ function initListenerQuantity() {
 function listenerQuantity(quantityButton) {
     quantityButton.addEventListener("change", e => {
         e.preventDefault();
+        if (quantityButton.valueAsNumber < 0 || quantityButton.valueAsNumber > 100) {
+            alert("quantité invalide");
+            return;
+        }
         const item = e.target.closest(".cart__item") //comme queryselector mais trouve le plus proche 
         let index = cartProducts.findIndex(p => p.id === item.dataset.id && p.color === item.dataset.color); //chercher dans panier si un produit = id du produit que je cherche 
         if (index !== -1) {

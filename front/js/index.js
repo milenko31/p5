@@ -14,6 +14,11 @@ function getAllProducts() {
         .then(function(response) {
             return response.json();
         })
+        .catch((error) => { //attraper une erreur
+            let items = document.querySelector(".items");
+            items.innerHTML =
+                "Une erreur est survenue.<br> Si le problème persiste veuillez nous en informer.";
+        });
 }
 //variable qui fini en s ou liste = tableau
 function renderProducts(productList) {

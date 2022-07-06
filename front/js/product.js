@@ -5,6 +5,11 @@ function getOneProduct() {
         .then(function(response) {
             return response.json();
         })
+        .catch((error) => {
+            let item = document.querySelector(".item");
+            item.innerHTML =
+                "Une erreur est survenue.<br> Si le problème persiste veuillez nous en informer.";
+        });
 }
 console.log(idProduct);
 
@@ -50,7 +55,7 @@ function addProduct() {
         product.quantity = document.getElementById("quantity").valueAsNumber;
         product.color = document.getElementById("colors").value;
         product.id = idProduct;
-        if (product.quantity > 0 && product.color.length > 0) {
+        if (product.quantity > 0 && product.color.length > 0 && product.quantity < 101) {
             let cartProducts = getProducts(); //recup le panier
             let index = cartProducts.findIndex(p => p.id === product.id && p.color === product.color); //chercher dans panier si un produit = id du produit que je cherche 
             if (index === -1) { // findIndex retourne -1 si il ne trouve aucun élément du tableau
@@ -59,6 +64,7 @@ function addProduct() {
                 cartProducts[index].quantity = cartProducts[index].quantity + product.quantity; // 
             }
             saveProduct(cartProducts); //on save le nouveau panier
+            document.location.href = 'cart.html';
         } else {
             alert("Veuillez selectionner une quantité et une couleur");
         }
